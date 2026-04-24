@@ -1,0 +1,45 @@
+{
+  "template_name": "M2M Error Recovery Protocol (ERP)",
+  "description": "A deterministic fallback and recovery system for autonomous agents handling failures, retries, degraded modes, and escalation paths.",
+  "inputs": {
+    "error_packet": {
+      "type": "object",
+      "description": "Structured error information including code, message, and metadata."
+    },
+    "retry_policy": {
+      "type": "object",
+      "description": "Rules defining how and when retries should occur."
+    },
+    "degraded_modes": {
+      "type": "list",
+      "description": "Fallback modes the agent can enter when full functionality is unavailable."
+    },
+    "escalation_rules": {
+      "type": "object",
+      "description": "Conditions for escalating errors to other agents or systems."
+    }
+  },
+  "workflow": [
+    {
+      "step": "classify_error",
+      "action": "Agent classifies the error based on severity and metadata."
+    },
+    {
+      "step": "attempt_retry",
+      "action": "Agent retries the operation according to the retry policy."
+    },
+    {
+      "step": "enter_degraded_mode",
+      "action": "If retries fail, agent enters a deterministic degraded mode."
+    },
+    {
+      "step": "escalate_if_needed",
+      "action": "If conditions are met, agent escalates the error to another system."
+    },
+    {
+      "step": "return_status",
+      "action": "Protocol returns a machine-readable recovery summary."
+    }
+  ],
+  "output_format": "json"
+}
